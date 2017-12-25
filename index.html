@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>スケッチの練習</title>
+  <style type="text/css">
+    #my-canvas{
+      border: 1px solid #000;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+<body>
+  <p>
+    <select id="penColor">
+      <option value="black">黒</option>
+      <option value="red">赤</option>
+      <option value="blue">青</option>
+      <option value="white">白</option>
+    </select>
+    <select id="penWidth">
+      <option value="1">細</option>
+      <option value="3">中</option>
+      <option value="5">太</option>
+    </select>
+    <input type="button" id="erase" value="消去">
+  </p>
+  <canvas id="my-canvas" width="400" height="200"></canvas>
+  <script src="./script.js"></script>
+</body>
+</html>
