@@ -43,6 +43,22 @@ class CanvasSketch {
     const {ctx, canvasElement} = this;
     ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
   }
+  changeCanvasSize(width, height) {
+    const src = this.canvasElement.toDataURL();
+    this.canvasElement.width = width;
+    this.canvasElement.height = height;
+    const image = new Image();
+    image.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('ctx is null.');
+      ctx.drawImage(image, 0, 0, image.width, image.height);
+      this.ctx.drawImage(canvas, 0, 0);
+    };
+    image.src = src;
+  }
 }
 
 const canvas = document.querySelector('#my-canvas');
@@ -112,6 +128,28 @@ document.querySelector('#erase').addEventListener(
   'click',
   () => {
     canvasSketch.eraseAll();
+  },
+  false
+);
+
+document.querySelector('#canvasSize').addEventListener(
+  'change',
+  e => {
+    const {options} = e.target;
+    const value = options[options.selectedIndex].value;
+    switch (value) {
+      case 'small':
+        canvasSketch.changeCanvasSize(300, 300);
+        break;
+      case 'middle':
+        canvasSketch.changeCanvasSize(500, 500);
+        break;
+      case 'large':
+        canvasSketch.changeCanvasSize(700, 700);
+        break;
+      default:
+        break;
+    }
   },
   false
 );
